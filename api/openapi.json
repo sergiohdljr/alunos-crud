@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api",
+      "url": "http://localhost:3333/api",
       "description": "Servidor de desenvolvimento"
     }
   ],
@@ -58,7 +58,8 @@
                   "$ref": "#/components/schemas/ErrorResponse"
                 },
                 "example": {
-                  "error": "Dados de entrada inválidos"
+                  "error": "ValidationError",
+                  "message": "Dados de entrada inválidos"
                 }
               }
             }
@@ -70,8 +71,21 @@
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 },
-                "example": {
-                  "error": "Student already exists"
+                "examples": {
+                  "email_exists": {
+                    "summary": "Email já existe",
+                    "value": {
+                      "error": "StudentEmailAlreadyExistsError",
+                      "message": "Student with email joao.silva@exemplo.com already exists"
+                    }
+                  },
+                  "cpf_exists": {
+                    "summary": "CPF já existe",
+                    "value": {
+                      "error": "StudentCpfAlreadyExistsError",
+                      "message": "Student with CPF 12345678901 already exists"
+                    }
+                  }
                 }
               }
             }
@@ -273,11 +287,21 @@
       },
       "ErrorResponse": {
         "type": "object",
+        "required": ["error", "message"],
         "properties": {
           "error": {
             "type": "string",
-            "description": "Mensagem de erro",
-            "example": "Erro interno do servidor"
+            "description": "Nome da classe do erro",
+            "example": "StudentEmailAlreadyExistsError"
+          },
+          "message": {
+            "type": "string",
+            "description": "Mensagem descritiva do erro",
+            "example": "Student with email joao.silva@exemplo.com already exists"
+          },
+          "details": {
+            "description": "Detalhes adicionais do erro (opcional)",
+            "example": null
           }
         }
       }

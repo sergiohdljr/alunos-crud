@@ -2,6 +2,7 @@ import { createServer } from "@/infra/http/server.ts";
 import { makeRegisterStudentController } from "@/main/factories/make-register-student-controller.ts";
 import { studentRoutes } from "@/infra/http/routes/student-routes.ts";
 import { apiReference } from "@scalar/express-api-reference";
+import { errorHandler } from "@/infra/http/middleares/error-handling.ts";
 
 export async function bootstrap() {
   const app = createServer();
@@ -34,6 +35,7 @@ export async function bootstrap() {
   )
 
   app.use("/api", studentRoutes(registerStudentController));
+  app.use(errorHandler);
 
   return app;
 }
