@@ -5,13 +5,20 @@ export class CreateStudentUseCase {
     constructor(private readonly studentRepository: StudentRepository) {}
     
     async execute(student: Student): Promise<Record<string, number>> {
-        const existingStudent = await this.studentRepository.list({
-            email: student.email,
-            cpf: student.cpf
+        const existingByEmail = await this.studentRepository.list({
+            email: student.email
         });
-        if (existingStudent.length > 0) {
+        if (existingByEmail.length > 0) {
             throw new Error("Student already exists");
         }
+
+        const existingByCpf = await this.studentRepository.list({
+            cpf: student.cpf
+        });
+        if (existingByCpf.length > 0) {
+            throw new Error("Student already exists");
+        }
+
         return this.studentRepository.create(student);
     }
 }
