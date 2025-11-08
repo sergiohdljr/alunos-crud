@@ -1,0 +1,292 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Gerenciamento de Alunos",
+    "description": "API REST para gerenciar alunos com operações de criação e listagem",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Suporte da API",
+      "email": "suporte@exemplo.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api",
+      "description": "Servidor de desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/students": {
+      "post": {
+        "summary": "Criar novo aluno",
+        "description": "Cria um novo aluno no sistema. Verifica se já existe um aluno com o mesmo email ou CPF.",
+        "tags": ["Alunos"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStudentRequest"
+              },
+              "example": {
+                "name": "João Silva",
+                "email": "joao.silva@exemplo.com",
+                "cpf": "12345678901"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Aluno criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateStudentResponse"
+                },
+                "example": {
+                  "id": 1
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos fornecidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "Dados de entrada inválidos"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Aluno já existe",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "Student already exists"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Listar alunos",
+        "description": "Lista alunos com filtros opcionais por nome, email ou CPF. Se nenhum filtro for fornecido, retorna todos os alunos.",
+        "tags": ["Alunos"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filtrar por nome do aluno",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "João Silva"
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Filtrar por email do aluno",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "email"
+            },
+            "example": "joao.silva@exemplo.com"
+          },
+          {
+            "name": "cpf",
+            "in": "query",
+            "description": "Filtrar por CPF do aluno",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]{11}$"
+            },
+            "example": "12345678901"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de alunos retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListStudentsResponse"
+                },
+                "examples": {
+                  "todos_alunos": {
+                    "summary": "Todos os alunos",
+                    "value": {
+                      "students": [
+                        {
+                          "id": 1,
+                          "name": "João Silva",
+                          "email": "joao.silva@exemplo.com",
+                          "cpf": "12345678901"
+                        },
+                        {
+                          "id": 2,
+                          "name": "Maria Santos",
+                          "email": "maria.santos@exemplo.com",
+                          "cpf": "98765432100"
+                        }
+                      ],
+                      "isEmpty": false,
+                      "count": 2
+                    }
+                  },
+                  "lista_vazia": {
+                    "summary": "Nenhum aluno encontrado",
+                    "value": {
+                      "students": [],
+                      "isEmpty": true,
+                      "count": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Student": {
+        "type": "object",
+        "required": ["name", "email", "cpf"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único do aluno (gerado automaticamente)",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome completo do aluno",
+            "minLength": 1,
+            "maxLength": 100,
+            "example": "João Silva"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email do aluno (deve ser único)",
+            "example": "joao.silva@exemplo.com"
+          },
+          "cpf": {
+            "type": "string",
+            "pattern": "^[0-9]{11}$",
+            "description": "CPF do aluno (11 dígitos, deve ser único)",
+            "example": "12345678901"
+          }
+        }
+      },
+      "CreateStudentRequest": {
+        "type": "object",
+        "required": ["name", "email", "cpf"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome completo do aluno",
+            "minLength": 1,
+            "maxLength": 100,
+            "example": "João Silva"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email do aluno (deve ser único)",
+            "example": "joao.silva@exemplo.com"
+          },
+          "cpf": {
+            "type": "string",
+            "pattern": "^[0-9]{11}$",
+            "description": "CPF do aluno (11 dígitos, deve ser único)",
+            "example": "12345678901"
+          }
+        }
+      },
+      "CreateStudentResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID do aluno criado",
+            "example": 1
+          }
+        }
+      },
+      "ListStudentsResponse": {
+        "type": "object",
+        "properties": {
+          "students": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Student"
+            },
+            "description": "Lista de alunos encontrados"
+          },
+          "isEmpty": {
+            "type": "boolean",
+            "description": "Indica se a lista está vazia",
+            "example": false
+          },
+          "count": {
+            "type": "integer",
+            "description": "Número total de alunos encontrados",
+            "example": 2
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Mensagem de erro",
+            "example": "Erro interno do servidor"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Alunos",
+      "description": "Operações relacionadas ao gerenciamento de alunos"
+    }
+  ]
+}
