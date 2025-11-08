@@ -31,4 +31,33 @@ describe('ListStudentsUseCase', () => {
     expect(students).toBeInstanceOf(Array)
     expect(students).toHaveLength(2);
   });
+
+  test('should list students by name', async () => {
+    const students = await listStudents.execute({ name: 'John Doe' });
+
+    expect(students).toBeInstanceOf(Array)
+    expect(students).toHaveLength(1);
+  });
+
+  test('should list students by email', async () => {
+    const students = await listStudents.execute({ email: 'john.doe@example.com' });
+
+    expect(students).toBeInstanceOf(Array)
+    expect(students).toHaveLength(1);
+  });
+
+  test('should list students by cpf', async () => {
+    const students = await listStudents.execute({ cpf: '12345678901' });
+
+    expect(students).toBeInstanceOf(Array)
+    expect(students).toHaveLength(1);
+  });
+
+  test('should list student by name,cpf and email', async () => {
+    const students = await listStudents.execute({ name: 'John Doe', cpf: '12345678901', email: 'john.doe@example.com' });
+
+    expect(students).toBeInstanceOf(Array)
+    expect(students).toHaveLength(1);
+  });
+
 });
