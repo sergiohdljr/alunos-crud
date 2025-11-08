@@ -11,6 +11,12 @@ export class InMemoryRepository implements StudentRepository {
     }
     
     async list(student: Partial<Student>): Promise<Student[]> {
-        return this.students;
+        return this.students.filter((s) => {
+            const matchesName = !student.name || s.name === student.name;
+            const matchesEmail = !student.email || s.email === student.email;
+            const matchesCpf = !student.cpf || s.cpf === student.cpf;
+            
+            return matchesName && matchesEmail && matchesCpf;
+        });
     }
 }
