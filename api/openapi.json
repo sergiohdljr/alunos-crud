@@ -146,37 +146,32 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ListStudentsResponse"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Student"
+                  }
                 },
                 "examples": {
                   "todos_alunos": {
                     "summary": "Todos os alunos",
-                    "value": {
-                      "students": [
-                        {
-                          "id": 1,
-                          "name": "João Silva",
-                          "email": "joao.silva@exemplo.com",
-                          "cpf": "12345678901"
-                        },
-                        {
-                          "id": 2,
-                          "name": "Maria Santos",
-                          "email": "maria.santos@exemplo.com",
-                          "cpf": "98765432100"
-                        }
-                      ],
-                      "isEmpty": false,
-                      "count": 2
-                    }
+                    "value": [
+                      {
+                        "id": 1,
+                        "name": "João Silva",
+                        "email": "joao.silva@exemplo.com",
+                        "cpf": "12345678901"
+                      },
+                      {
+                        "id": 2,
+                        "name": "Maria Santos",
+                        "email": "maria.santos@exemplo.com",
+                        "cpf": "98765432100"
+                      }
+                    ]
                   },
                   "lista_vazia": {
                     "summary": "Nenhum aluno encontrado",
-                    "value": {
-                      "students": [],
-                      "isEmpty": true,
-                      "count": 0
-                    }
+                    "value": []
                   }
                 }
               }
@@ -260,28 +255,6 @@
             "type": "integer",
             "description": "ID do aluno criado",
             "example": 1
-          }
-        }
-      },
-      "ListStudentsResponse": {
-        "type": "object",
-        "properties": {
-          "students": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Student"
-            },
-            "description": "Lista de alunos encontrados"
-          },
-          "isEmpty": {
-            "type": "boolean",
-            "description": "Indica se a lista está vazia",
-            "example": false
-          },
-          "count": {
-            "type": "integer",
-            "description": "Número total de alunos encontrados",
-            "example": 2
           }
         }
       },

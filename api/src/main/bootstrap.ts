@@ -16,6 +16,7 @@ export async function bootstrap() {
   app.use(
     '/reference',
     apiReference({
+      theme: "elysiajs",
       title: 'API de Gerenciamento de Alunos',
       url: '/openapi.json',
       metaData: {
@@ -23,7 +24,7 @@ export async function bootstrap() {
         description: 'Documentação interativa da API de gerenciamento de alunos',
         ogDescription: 'API REST para gerenciar alunos com operações CRUD',
       },
-      darkMode: false,
+      darkMode: true,
       layout: 'modern',
       servers: [
         {
