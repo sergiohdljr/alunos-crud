@@ -1,6 +1,8 @@
 import { CreateStudentUseCase } from '@/application/use-cases/create-student-use-case.ts';
 import { InMemoryRepository } from '@/infra/repositories/in-memory-repository.ts';
 import { Student } from '@/domain/entities/student.ts';
+import { StudentEmailAlreadyExistsError } from '@/domain/errors/student-email-already-exists-error.ts';
+import { StudentCpfAlreadyExistsError } from '@/domain/errors/student-cpf-alreadt-exists-error.ts';
 import { describe, expect, beforeEach } from '@jest/globals';
 
 describe('CreateStudentUseCase', () => {
@@ -33,7 +35,7 @@ describe('CreateStudentUseCase', () => {
         email: 'john.doe@example.com',
         cpf: '98765432100',
       }),
-    ).rejects.toThrow('Student already exists');
+    ).rejects.toThrow(StudentEmailAlreadyExistsError);
   });
 
   test('should throw an error if a student with the same cpf already exists', async () => {
@@ -45,6 +47,6 @@ describe('CreateStudentUseCase', () => {
         email: 'jane.doe@example.com',
         cpf: '12345678901',
       }),
-    ).rejects.toThrow('Student already exists');
+    ).rejects.toThrow(StudentCpfAlreadyExistsError);
   });
 });
