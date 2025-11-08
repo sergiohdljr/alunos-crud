@@ -4,7 +4,7 @@ import { StudentController } from "@/infra/http/controllers/student-controller.t
 import { DrizzleRepository } from "@/infra/repositories/drizzle-repository.ts";
 import { ListStudentsUseCase } from "@/application/use-cases/list-students-use-case.ts";
 
-export function makeRegisterStudentController() {
+export function makeStudentController() {
     const repository = new DrizzleRepository(db);
     const createStudentUseCase = new CreateStudentUseCase(repository);
     const listStudentsUseCase = new ListStudentsUseCase(repository);
