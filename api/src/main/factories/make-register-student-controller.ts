@@ -1,0 +1,14 @@
+import { CreateStudentUseCase } from "@/application/use-cases/create-student-use-case.ts";
+import { db } from "@/infra/db/client.ts";
+import { StudentController } from "@/infra/http/controllers/student-controller.ts";
+import { DrizzleRepository } from "@/infra/repositories/drizzle-repository.ts";
+import { ListStudentsUseCase } from "@/application/use-cases/list-students-use-case.ts";
+
+export function makeRegisterStudentController() {
+    const repository = new DrizzleRepository(db);
+    const createStudentUseCase = new CreateStudentUseCase(repository);
+    const listStudentsUseCase = new ListStudentsUseCase(repository);
+    const studentController = new StudentController(createStudentUseCase, listStudentsUseCase);
+    
+    return studentController;
+}
