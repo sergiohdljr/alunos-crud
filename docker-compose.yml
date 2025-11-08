@@ -26,7 +26,7 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL}
       PORT: ${API_PORT}
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV}
     ports:
       - "${API_PORT}:${API_PORT}"
     depends_on:
@@ -34,6 +34,9 @@ services:
         condition: service_healthy
     networks:
       - alunos-network
+    volumes:
+      - ./api/src:/app/src
+      - /app/node_modules
 
   web:
     build:
@@ -48,6 +51,10 @@ services:
       - api
     networks:
       - alunos-network
+    volumes:
+      - ./web/src:/app/src
+      - ./web/public:/app/public
+      - /app/node_modules
 
 networks:
   alunos-network:

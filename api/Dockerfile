@@ -8,10 +8,7 @@ COPY tsconfig.json ./
 RUN npm ci
 
 COPY src/ ./src/
-RUN npm run build
-
-RUN npm ci --only=production && npm cache clean --force
 
 EXPOSE 3333
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
