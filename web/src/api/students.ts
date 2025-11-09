@@ -1,15 +1,6 @@
+import type { Student, StudentPayload } from "./student-types";
+
 const API_BASE_URL = 'http://localhost:3333/api';
-
-export interface Student {
-  id: number;
-  name: string;
-  email: string;
-  cpf: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export type StudentPayload = Omit<Student, 'id' | 'created_at' | 'updated_at'>;
 
 export const studentsApi = {
   

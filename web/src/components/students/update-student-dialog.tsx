@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
-import type { Student, StudentPayload } from "@/api/students"
+import type { Student, StudentPayload } from "@/api/student-types"
 import { studentsApi } from "@/api/students"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
