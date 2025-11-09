@@ -28,6 +28,17 @@ export class DrizzleRepository implements StudentRepository {
             .where(conditions.length > 0 ? or(...conditions) : undefined)
             .orderBy(desc(studentTable.id));
     }
+
+    async edit(id: number, student: Student): Promise<Student> {
+        const [updatedStudent] = await this.db
+            .update(studentTable)
+            .set(student)
+            .where(eq(studentTable.id, id))
+            .returning();
+
+        return updatedStudent;
+    }
+
     async delete(id: number): Promise<void> {
         await this.db.delete(studentTable).where(eq(studentTable.id, id));
     }

@@ -3,5 +3,6 @@ import { Student } from "@/domain/entities/student.ts";
 export interface StudentRepository {
     create(student: Student): Promise<Record<string, number>>;
     list({name, cpf, email}: Partial<Student>): Promise<Student[]>;
+    edit(id: number, student: Student): Promise<Student>;
     delete(id: number): Promise<void>;
 }

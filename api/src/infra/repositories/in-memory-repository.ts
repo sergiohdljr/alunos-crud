@@ -20,6 +20,14 @@ export class InMemoryRepository implements StudentRepository {
             return matchesId && matchesName && matchesEmail && matchesCpf;
         }); 
     }
+
+    async edit(id: number, student: Student): Promise<Student> {
+        const index = this.students.findIndex((s) => s.id === id);
+
+        this.students[index] = {...this.students[index], ...student};
+        return this.students[index];
+    }
+
     async delete(id: number): Promise<void> {
         this.students = this.students.filter((s) => s.id !== id);
     }
