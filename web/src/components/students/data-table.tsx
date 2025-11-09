@@ -1,5 +1,3 @@
-"use client"
-
 import {
   type ColumnDef,
   flexRender,
@@ -17,6 +15,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { TablePagination } from "./table-pagination"
+import { Input } from "@/components/ui/input"
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -36,6 +36,16 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="w-full overflow-hidden rounded-md border p-4">
+     <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter emails..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("email")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
