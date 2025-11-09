@@ -43,6 +43,9 @@ Antes de configurar o banco de dados, você precisa configurar as variáveis de 
 # Entrar na pasta api
 cd api
 
+#Instalar as dependências
+npm install
+
 # Criar arquivo .env a partir do .env.example
 npm run setup:env
 ```
@@ -62,9 +65,6 @@ DATABASE_URL=postgresql://alunos_user:alunos_password@postgres:5432/alunos_db
 Após os containers estarem rodando e as variáveis de ambiente configuradas, execute os comandos para configurar o banco:
 
 ```bash
-
-#Instalar as dependências
-npm install
 
 # Gerar as migrações do drizzle
 npm run db:generate
