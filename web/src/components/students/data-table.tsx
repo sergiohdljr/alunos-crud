@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/table"
 import { TablePagination } from "./table-pagination"
 import { Input } from "@/components/ui/input"
-
+import { CreateStudentDialog } from "./create-student-dialog"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -36,7 +36,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="w-full overflow-hidden rounded-md border p-4">
-     <div className="flex items-center py-4">
+     <div className="flex justify-between items-center py-4">
         <Input
           placeholder="Filter emails..."
           value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
@@ -45,6 +45,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+        <CreateStudentDialog />
       </div>
       <Table>
         <TableHeader>
