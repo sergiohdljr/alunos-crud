@@ -35,22 +35,7 @@ docker-compose ps
 # - PostgreSQL: localhost:5432
 ```
 
-### 3. Configurar variáveis de ambiente
-
-Configure as variáveis de ambiente da API:
-
-```bash
-cd api
-
-# Criar arquivo .env a partir do template
-npm run env:setup
-
-# Editar o arquivo .env com as configurações, para agilização setei as variáveis de ambiente com os valores do docker-compose.yml
-# DATABASE_URL=postgresql://alunos_user:alunos_password@postgres:5432/alunos_db
-# PORT=3333
-```
-
-### 4. Configurar o banco de dados
+### 3. Configurar o banco de dados
 
 Antes de configurar o banco de dados, você precisa configurar as variáveis de ambiente da API:
 
@@ -72,7 +57,7 @@ PORT=3333
 DATABASE_URL=postgresql://alunos_user:alunos_password@postgres:5432/alunos_db
 ```
 
-### 4. Configurar o banco de dados
+### 4. Rodar migrações e seeds
 
 Após os containers estarem rodando e as variáveis de ambiente configuradas, execute os comandos para configurar o banco:
 
@@ -94,7 +79,7 @@ npm run db:seed
 npm run db:studio
 ```
 
-### 5. Executar testes automatizados
+### 5. Executar testes automatizados(opcional)
 
 Para rodar os testes da API:
 
@@ -182,7 +167,7 @@ alunos-crud/
 - Tailwind CSS (estilização)
 - Shadcn/ui (componentes)
 
-## Desenvolvimento Local (Opcional)
+## Desenvolvimento Local (Opcional não recomendado)
 
 Se preferir executar os serviços localmente para desenvolvimento:
 
@@ -204,4 +189,7 @@ cd web
 npm install
 npm run dev  # Porta 5173
 ```
+
+### Postgres
+# ainda será necessário um postgres para rodar o projeto
 
