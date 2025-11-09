@@ -9,6 +9,8 @@ export interface Student {
   updated_at: string;
 }
 
+export type StudentPayload = Omit<Student, 'id' | 'created_at' | 'updated_at'>;
+
 export const studentsApi = {
   
   getAll: async (): Promise<Student[]> => {
@@ -30,8 +32,7 @@ export const studentsApi = {
     }
   },
 
-  
-  create: async (student: Omit<Student, 'id' | 'created_at' | 'updated_at'>): Promise<{ id: number }> => {
+  create: async (student: StudentPayload): Promise<{ id: number }> => {
     const response = await fetch(`${API_BASE_URL}/students`, {
       method: 'POST',
       headers: {
@@ -43,6 +44,23 @@ export const studentsApi = {
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.message || 'Failed to create student');
+    }
+    
+    return response.json();
+  },
+
+  update: async (id: number, student: StudentPayload): Promise<Student> => {
+    const response = await fetch(`${API_BASE_URL}/students/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(student),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Failed to update student with id ${id}`);
     }
     
     return response.json();
