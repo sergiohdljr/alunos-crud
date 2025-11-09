@@ -93,7 +93,6 @@ export function DataTable<TData, TValue>({
             <Search className="w-4" />
             Buscar
           </Button>
-          {hasInputFilters && (
             <Button
               variant="outline"
               onClick={resetFilters}
@@ -102,7 +101,6 @@ export function DataTable<TData, TValue>({
               <X className="w-4" />
               Limpar
             </Button>
-          )}
         </div>
         <CreateStudentDialog />
       </div>
