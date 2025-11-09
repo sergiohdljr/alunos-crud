@@ -52,11 +52,36 @@ npm run env:setup
 
 ### 4. Configurar o banco de dados
 
-Após os containers estarem rodando, execute os comandos para configurar o banco:
+Antes de configurar o banco de dados, você precisa configurar as variáveis de ambiente da API:
+
+```bash
+# Entrar na pasta api
+cd api
+
+# Criar arquivo .env a partir do .env.example
+npm run setup:env
+```
+
+**Configuração recomendada para Docker Compose:**
+
+O arquivo `.env` criado deve conter a seguinte configuração para funcionar com o Docker Compose:
+
+```env
+NODE_ENV=development
+PORT=3333
+DATABASE_URL=postgresql://alunos_user:alunos_password@postgres:5432/alunos_db
+```
+
+### 4. Configurar o banco de dados
+
+Após os containers estarem rodando e as variáveis de ambiente configuradas, execute os comandos para configurar o banco:
 
 ```bash
 
-# Gerar as migrações do Prisma
+#Instalar as dependências
+npm install
+
+# Gerar as migrações do drizzle
 npm run db:generate
 
 # Executar as migrações
@@ -83,6 +108,7 @@ npm run test:unit
 ### 6. Executar lint na API(opcional)
 
 ```bash
+
 # Verificar e corrigir problemas de lint
 npm run lint
 
