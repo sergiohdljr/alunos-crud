@@ -76,14 +76,14 @@
                     "summary": "Email já existe",
                     "value": {
                       "error": "StudentEmailAlreadyExistsError",
-                      "message": "Student with email joao.silva@exemplo.com already exists"
+                      "message": "Aluno com email joao.silva@exemplo.com já existe"
                     }
                   },
                   "cpf_exists": {
                     "summary": "CPF já existe",
                     "value": {
                       "error": "StudentCpfAlreadyExistsError",
-                      "message": "Student with CPF 12345678901 already exists"
+                      "message": "Aluno com CPF 12345678901 já existe"
                     }
                   }
                 }
@@ -221,7 +221,7 @@
                 },
                 "example": {
                   "error": "StudentNotFoundError",
-                  "message": "Student with id 1 not found"
+                  "message": "Aluno com ID 1 não encontrado"
                 }
               }
             }
@@ -310,7 +310,7 @@
                 },
                 "example": {
                   "error": "StudentNotFoundError",
-                  "message": "Student with id 1 not found"
+                  "message": "Aluno com ID 1 não encontrado"
                 }
               }
             }
@@ -327,14 +327,14 @@
                     "summary": "Email já existe",
                     "value": {
                       "error": "StudentEmailAlreadyExistsError",
-                      "message": "Student with email joao.santos@exemplo.com already exists"
+                      "message": "Aluno com email joao.santos@exemplo.com já existe"
                     }
                   },
                   "cpf_exists": {
                     "summary": "CPF já existe",
                     "value": {
                       "error": "StudentCpfAlreadyExistsError",
-                      "message": "Student with cpf 12345678901 already exists"
+                      "message": "Aluno com CPF 12345678901 já existe"
                     }
                   }
                 }
@@ -459,7 +459,7 @@
           "message": {
             "type": "string",
             "description": "Mensagem descritiva do erro",
-            "example": "Student with email joao.silva@exemplo.com already exists"
+            "example": "Aluno com email joao.silva@exemplo.com já existe"
           },
           "details": {
             "description": "Detalhes adicionais do erro (opcional)",
