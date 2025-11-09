@@ -79,7 +79,7 @@ npm run db:seed
 npm run db:studio
 ```
 
-### 5. Executar testes automatizados(opcional)
+### 5. Executar testes automatizados [opcional]
 
 Para rodar os testes da API:
 
@@ -90,7 +90,7 @@ npm run test:unit
 
 ```
 
-### 6. Executar lint na API(opcional)
+### 6. Executar lint na API [opcional]
 
 ```bash
 
@@ -167,30 +167,4 @@ alunos-crud/
 - TanStack Table (tabelas)
 - Tailwind CSS (estilização)
 - Shadcn/ui (componentes)
-
-## Desenvolvimento Local (Opcional não recomendado)
-
-Se preferir executar os serviços localmente para desenvolvimento:
-
-### API
-```bash
-cd api
-npm install
-
-# Configurar variáveis de ambiente
-npm run env:setup
-# Edite o arquivo .env com suas configurações
-
-npm run dev  # Porta 3333
-```
-
-### Frontend
-```bash
-cd web
-npm install
-npm run dev  # Porta 5173
-```
-
-### Postgres
-# ainda será necessário um postgres para rodar o projeto
 
