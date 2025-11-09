@@ -1,7 +1,7 @@
 import { StudentRepository } from '@/application/repositories/student-repository-interface.ts'
 import { Student } from '@/domain/entities/student.ts'
 import { studentTable } from '@/infra/db/schema/students.ts'
-import { desc, eq, or } from 'drizzle-orm'
+import { desc, eq, or, like } from 'drizzle-orm'
 import { NodePgDatabase } from 'drizzle-orm/node-postgres'
 
 export class DrizzleRepository implements StudentRepository {
@@ -18,7 +18,7 @@ export class DrizzleRepository implements StudentRepository {
   async list(student: Partial<Student>): Promise<Student[]> {
     const conditions = []
     if (student.id) conditions.push(eq(studentTable.id, student.id))
-    if (student.name) conditions.push(eq(studentTable.name, student.name))
+    if (student.name) conditions.push(like(studentTable.name, `%${student.name}%`))
     if (student.email) conditions.push(eq(studentTable.email, student.email))
     if (student.cpf) conditions.push(eq(studentTable.cpf, student.cpf))
 
