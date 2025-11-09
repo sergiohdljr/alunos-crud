@@ -30,8 +30,10 @@ export function DeleteStudentAction({ id }: DeleteStudentActionProps) {
       toast.success('Aluno deletado com sucesso')
       setOpen(false)
     },
-    onError: () => {
-      toast.error('Erro ao deletar aluno')
+    onError: ({message}) => {
+      toast.error('Erro ao deletar aluno', {
+        description: message
+      })
     }
   })
 

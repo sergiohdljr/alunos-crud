@@ -43,8 +43,10 @@ export function UpdateStudentDialog({ id, currentStudent }: UpdateStudentDialogP
       setOpen(false)
       toast.success("Aluno atualizado com sucesso")
     },
-    onError: () => {
-      toast.error("Erro ao atualizar aluno")
+    onError: ({message}) => {
+      toast.error("Erro ao atualizar aluno", {
+        description: message
+      })
     }
   })
   const saveStudent = () => {

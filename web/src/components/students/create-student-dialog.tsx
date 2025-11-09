@@ -12,12 +12,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
-import type { Student } from "@/api/students"
+import type { StudentPayload } from "@/api/student-types"
 import { studentsApi } from "@/api/students"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 
-type CreateStudentDialogProps = Omit<Student, "id" | "created_at" | "updated_at">;
+type CreateStudentDialogProps = StudentPayload
   
 
 export function CreateStudentDialog() {
@@ -39,8 +39,10 @@ export function CreateStudentDialog() {
       setOpen(false)
       toast.success("Aluno criado com sucesso")
     },
-    onError: () => {
-      toast.error("Erro ao criar aluno")
+    onError: ({message}) => {
+      toast.error("Erro ao criar aluno", {
+        description: message
+      })
     }
   })
   const saveStudent = () => {
