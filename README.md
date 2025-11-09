@@ -107,6 +107,7 @@ O projeto roda completamente em containers Docker com os seguintes serviços:
 |---------|-----------|-------|-----|
 | **Frontend** | `alunos-web` | 5173 | http://localhost:5173 |
 | **API** | `alunos-api` | 3333 | http://localhost:3333/api |
+| **Documentação da API** | `alunos-api` | 3333 | http://localhost:3333/reference |
 | **PostgreSQL** | `alunos-postgres` | 5432 | localhost:5432 |
 
 ## Estrutura do projeto
