@@ -2,6 +2,7 @@ import type { ColumnDef } from "@tanstack/react-table"
 import { ActionTableDropdown } from "./action-table-dropdown"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { studentsApi, type Student } from "@/api/students"
+import { toast } from "sonner"
 
 export const columns: ColumnDef<Student>[] = [
     {
@@ -43,6 +44,7 @@ export const columns: ColumnDef<Student>[] = [
             mutationFn: (studentId: number) => studentsApi.delete(studentId),
             onSuccess: () => {
               queryClient.invalidateQueries({ queryKey: ['students'] })
+              toast.success('Aluno deletado com sucesso')
             }
           })
           
