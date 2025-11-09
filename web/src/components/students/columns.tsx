@@ -1,8 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { MoreHorizontal } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ActionTableDropdown } from "./action-table-dropdown"
+
 type Student = {
     name: string
     email: string
@@ -61,28 +60,24 @@ export const columns: ColumnDef<Student>[] = [
         enableHiding: false,
         cell: ({ row }) => {
           const student = row.original
+          
+          const handleEdit = (student: Student) => {
+            console.log("Edit student:", student)
+            // TODO: Implement edit functionality
+          }
+          
+          const handleDelete = (student: Student) => {
+            console.log("Delete student:", student)
+            // TODO: Implement delete functionality
+          }
+          
           return (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
-                  <MoreHorizontal />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Ações</DropdownMenuLabel>
-                <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(student.cpf)}
-                >
-                  Copiar CPF
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Editar</DropdownMenuItem>
-                <DropdownMenuItem>Deletar</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <ActionTableDropdown 
+              student={student}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           )
         },
       },
 ]
-
