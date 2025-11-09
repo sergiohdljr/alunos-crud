@@ -16,7 +16,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
       </div>
       <div className="flex items-center space-x-2">
         <Button
-          variant="outline"
+          variant="default"
           size="sm"
           onClick={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
@@ -24,7 +24,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
           Primeira
         </Button>
         <Button
-          variant="outline"
+          variant="default"
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
@@ -32,7 +32,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
           Anterior
         </Button>
         <Button
-          variant="outline"
+          variant="default"
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
@@ -40,7 +40,7 @@ export function TablePagination<TData>({ table }: TablePaginationProps<TData>) {
           Próximo
         </Button>
         <Button
-          variant="outline"
+          variant="default"
           size="sm"
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
           disabled={!table.getCanNextPage()}
