@@ -15,12 +15,12 @@ function App() {
  
   return (
     <div className='w-full h-screen flex flex-col items-center justify-center' >
-      <div className='w-4/6' >
+      <div className='lg:w-4/6 w-full' >
       {isLoading && <div>Carregando...</div>}
       {error && <div>Erro ao carregar dados</div>}
-      {!isLoading && !error && <DataTable 
+      {!isLoading && !error && data && <DataTable 
         columns={columns} 
-        data={data || []} 
+        data={data} 
         inputFilters={inputFilters} 
         setInputFilters={setInputFilters}
         applyFilters={applyFilters}
