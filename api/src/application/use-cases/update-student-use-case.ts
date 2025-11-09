@@ -17,7 +17,7 @@ export class UpdateStudentUseCase {
         const existingByEmail = await this.studentRepository.list({
             email: student.email
         });
-        if (existingByEmail.length > 0 ) {
+        if (existingByEmail.length > 0 && existingByEmail[0].id !== id) {
             throw new StudentEmailAlreadyExistsError(student.email);
         }
 
@@ -25,7 +25,7 @@ export class UpdateStudentUseCase {
             cpf: student.cpf
         });
         
-        if (existingByCpf.length > 0 ) {
+        if (existingByCpf.length > 0 && existingByCpf[0].id !== id) {
             throw new StudentCpfAlreadyExistsError(student.cpf);
         }
 
