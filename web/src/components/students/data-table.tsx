@@ -20,6 +20,7 @@ import { CreateStudentDialog } from "./create-student-dialog"
 import type { StudentPayload } from "@/api/student-types"
 import { Button } from "@/components/ui/button"
 import { X, Search } from "lucide-react"
+import { EmptyStudentsState } from "@/components/ui/empty-state"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -45,8 +46,6 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel()
   })
-
-  const hasInputFilters = inputFilters.name || inputFilters.email || inputFilters.cpf
 
   return (
     <div className="w-full overflow-hidden rounded-md border p-4">
@@ -139,8 +138,8 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                Nenhum aluno encontrado
+              <TableCell colSpan={columns.length} className="p-0">
+                <EmptyStudentsState onClearFilters={resetFilters} />
               </TableCell>
             </TableRow>
           )}
