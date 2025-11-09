@@ -35,7 +35,22 @@ docker-compose ps
 # - PostgreSQL: localhost:5432
 ```
 
-### 3. Configurar o banco de dados
+### 3. Configurar variáveis de ambiente
+
+Configure as variáveis de ambiente da API:
+
+```bash
+cd api
+
+# Criar arquivo .env a partir do template
+npm run env:setup
+
+# Editar o arquivo .env com as configurações, para agilização setei as variáveis de ambiente com os valores do docker-compose.yml
+# DATABASE_URL=postgresql://alunos_user:alunos_password@postgres:5432/alunos_db
+# PORT=3333
+```
+
+### 4. Configurar o banco de dados
 
 Após os containers estarem rodando, execute os comandos para configurar o banco:
 
@@ -54,7 +69,7 @@ npm run db:seed
 npm run db:studio
 ```
 
-### 4. Executar testes automatizados
+### 5. Executar testes automatizados
 
 Para rodar os testes da API:
 
@@ -65,7 +80,7 @@ npm run test:unit
 
 ```
 
-### 5. Executar lint na API(opcional)
+### 6. Executar lint na API(opcional)
 
 ```bash
 # Verificar e corrigir problemas de lint
@@ -93,6 +108,7 @@ alunos-crud/
 │   │   ├── domain/              # Entidades e interfaces do domínio
 │   │   ├── infra/               # Infraestrutura (banco, HTTP, etc.)
 │   │   └── main/                # Configuração e inicialização da aplicação
+│   ├── .env.example             # Template de variáveis de ambiente
 │   ├── biome.json               # Configuração do Biome (linter/formatter)
 │   ├── drizzle.config.ts        # Configuração do Drizzle ORM
 │   ├── jest.config.ts           # Configuração dos testes
@@ -148,6 +164,11 @@ Se preferir executar os serviços localmente para desenvolvimento:
 ```bash
 cd api
 npm install
+
+# Configurar variáveis de ambiente
+npm run env:setup
+# Edite o arquivo .env com suas configurações
+
 npm run dev  # Porta 3333
 ```
 
@@ -156,10 +177,5 @@ npm run dev  # Porta 3333
 cd web
 npm install
 npm run dev  # Porta 5173
-```
-
-**Nota:** Para desenvolvimento local, você ainda precisará do PostgreSQL rodando via Docker:
-```bash
-docker-compose up postgres -d
 ```
 

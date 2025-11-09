@@ -13,7 +13,8 @@
     "db:generate": "npx drizzle-kit generate --config=drizzle.config.ts",
     "db:studio": "drizzle-kit studio",
     "db:seed": "tsx src/infra/db/seed.ts",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "env:setup": "cp .env.example .env"
   },
   "keywords": [],
   "author": "",
