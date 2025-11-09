@@ -6,8 +6,8 @@ type Student = {
     name: string
     email: string
     cpf: string
-    createdAt: Date
-    updatedAt: Date
+    created_at: string
+    updated_at: string
 }
 
 export const columns: ColumnDef<Student>[] = [
@@ -44,16 +44,17 @@ export const columns: ColumnDef<Student>[] = [
     {
         header: "CPF",
         accessorKey: "cpf",
+        cell: ({ row }) => row.original.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'),
     },
     {
         header: "Criado em",
-        accessorKey: "createdAt",
-        cell: ({ row }) => row.original.createdAt.toLocaleDateString(),
+        accessorKey: "created_at",
+        cell: ({ row }) => new Date(row.original.created_at).toLocaleDateString(),
     },
     {
         header:'atualizado em',
-        accessorKey: 'updatedAt',
-        cell: ({ row }) => row.original.updatedAt.toLocaleDateString(),
+        accessorKey: 'updated_at',
+        cell: ({ row }) => new Date(row.original.updated_at).toLocaleDateString(),
     },
     {
         id: "actions",
