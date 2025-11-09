@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "API de Gerenciamento de Alunos",
-    "description": "API REST para gerenciar alunos com operações de criação e listagem",
+    "description": "API REST para gerenciar alunos com operações CRUD completas (criação, listagem, atualização e exclusão)",
     "version": "1.0.0",
     "contact": {
       "name": "Suporte da API",
@@ -237,6 +237,121 @@
             }
           }
         }
+      },
+      "put": {
+        "summary": "Atualizar aluno",
+        "description": "Atualiza os dados de um aluno existente pelo seu ID. Verifica se já existe outro aluno com o mesmo email ou CPF.",
+        "tags": ["Alunos"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID único do aluno a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStudentRequest"
+              },
+              "example": {
+                "name": "João Silva Santos",
+                "email": "joao.santos@exemplo.com",
+                "cpf": "12345678901"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aluno atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Student"
+                },
+                "example": {
+                  "id": 1,
+                  "name": "João Silva Santos",
+                  "email": "joao.santos@exemplo.com",
+                  "cpf": "12345678901"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos fornecidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "ValidationError",
+                  "message": "Dados de entrada inválidos"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Aluno não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "StudentNotFoundError",
+                  "message": "Student with id 1 not found"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email ou CPF já existe",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "examples": {
+                  "email_exists": {
+                    "summary": "Email já existe",
+                    "value": {
+                      "error": "StudentEmailAlreadyExistsError",
+                      "message": "Student with email joao.santos@exemplo.com already exists"
+                    }
+                  },
+                  "cpf_exists": {
+                    "summary": "CPF já existe",
+                    "value": {
+                      "error": "StudentCpfAlreadyExistsError",
+                      "message": "Student with cpf 12345678901 already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -288,6 +403,31 @@
             "format": "email",
             "description": "Email do aluno (deve ser único)",
             "example": "joao.silva@exemplo.com"
+          },
+          "cpf": {
+            "type": "string",
+            "pattern": "^[0-9]{11}$",
+            "description": "CPF do aluno (11 dígitos, deve ser único)",
+            "example": "12345678901"
+          }
+        }
+      },
+      "UpdateStudentRequest": {
+        "type": "object",
+        "required": ["name", "email", "cpf"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome completo do aluno",
+            "minLength": 1,
+            "maxLength": 100,
+            "example": "João Silva Santos"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email do aluno (deve ser único)",
+            "example": "joao.santos@exemplo.com"
           },
           "cpf": {
             "type": "string",

@@ -2,7 +2,7 @@ import { CreateStudentUseCase } from '@/application/use-cases/create-student-use
 import { InMemoryRepository } from '@/infra/repositories/in-memory-repository.ts';
 import { Student } from '@/domain/entities/student.ts';
 import { StudentEmailAlreadyExistsError } from '@/domain/errors/student-email-already-exists-error.ts';
-import { StudentCpfAlreadyExistsError } from '@/domain/errors/student-cpf-alreadt-exists-error.ts';
+import { StudentCpfAlreadyExistsError } from '@/domain/errors/student-cpf-already-exists-error.ts';
 import { describe, expect, beforeEach } from '@jest/globals';
 
 describe('CreateStudentUseCase', () => {
