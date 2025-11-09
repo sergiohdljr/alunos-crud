@@ -8,7 +8,7 @@ function App() {
 
  const {data, isLoading, error} = useQuery({
     queryKey: ['students'],
-    queryFn: studentsApi.getAll
+    queryFn: async ()=> await studentsApi.getAll()
  })
 
   return (

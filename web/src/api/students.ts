@@ -2,10 +2,30 @@ import type { Student, StudentPayload } from "./student-types";
 
 const API_BASE_URL = 'http://localhost:3333/api';
 
+export interface StudentFilters {
+  name?: string;
+  email?: string;
+  cpf?: string;
+}
+
 export const studentsApi = {
   
-  getAll: async (): Promise<Student[]> => {
-    const response = await fetch(`${API_BASE_URL}/students`);
+  getAll: async (filters?: StudentFilters): Promise<Student[]> => {
+    const url = new URL(`${API_BASE_URL}/students`);
+    
+    if (filters) {
+      if (filters.name) {
+        url.searchParams.append('name', filters.name);
+      }
+      if (filters.email) {
+        url.searchParams.append('email', filters.email);
+      }
+      if (filters.cpf) {
+        url.searchParams.append('cpf', filters.cpf);
+      }
+    }
+
+    const response = await fetch(url.toString());
     if (!response.ok) {
       throw new Error('Failed to fetch students');
     }
