@@ -25,6 +25,7 @@ export async function bootstrap() {
         ogDescription: 'API REST para gerenciar alunos com operações CRUD',
       },
       darkMode: true,
+      showToolbar: "never",
       layout: 'modern',
       servers: [
         {
