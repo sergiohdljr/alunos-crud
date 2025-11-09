@@ -1,7 +1,7 @@
 import { StudentRepository } from "@/application/repositories/student-repository-interface.ts";
 import { Student } from "@/domain/entities/student.ts";
 import { studentTable } from "@/infra/db/schema/students.ts";
-import { eq, or } from "drizzle-orm";
+import { desc, eq, or } from "drizzle-orm";
 import { NodePgDatabase } from "drizzle-orm/node-postgres";
 
 export class DrizzleRepository implements StudentRepository {
@@ -25,7 +25,8 @@ export class DrizzleRepository implements StudentRepository {
         return await this.db
             .select()
             .from(studentTable)
-            .where(conditions.length > 0 ? or(...conditions) : undefined);
+            .where(conditions.length > 0 ? or(...conditions) : undefined)
+            .orderBy(desc(studentTable.id));
     }
     async delete(id: number): Promise<void> {
         await this.db.delete(studentTable).where(eq(studentTable.id, id));
