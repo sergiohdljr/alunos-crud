@@ -55,7 +55,9 @@ export function UpdateStudentDialog({ id, currentStudent }: UpdateStudentDialogP
     <Dialog open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
-          <Button variant="outline"><PencilIcon className="mr-2 h-4 w-4" /></Button>
+          <Button variant="outline">
+            <PencilIcon className="h-4 w-4" />
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
