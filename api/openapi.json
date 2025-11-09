@@ -198,7 +198,7 @@
         "parameters": [
           {
             "name": "id",
-            "in": "path", 
+            "in": "path",
             "description": "ID único do aluno a ser deletado",
             "required": true,
             "schema": {

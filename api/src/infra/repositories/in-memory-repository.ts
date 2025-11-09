@@ -1,34 +1,34 @@
-import { StudentRepository } from "@/application/repositories/student-repository-interface.ts";
-import { Student } from "@/domain/entities/student.ts";
+import { StudentRepository } from '@/application/repositories/student-repository-interface.ts'
+import { Student } from '@/domain/entities/student.ts'
 
 export class InMemoryRepository implements StudentRepository {
-    constructor(private students: Student[] = []) {}
-    
-    async create(student: Student): Promise<Record<string, number>> {
-        const newStudent = {...student, id: this.students.length + 1};
-        this.students.push(newStudent);
-        return {id: newStudent.id};
-    }
-    
-    async list(student: Partial<Student>): Promise<Student[]> {
-        return this.students.filter((s) => {
-            const matchesId = !student.id || s.id === student.id;
-            const matchesName = !student.name || s.name === student.name;
-            const matchesEmail = !student.email || s.email === student.email;
-            const matchesCpf = !student.cpf || s.cpf === student.cpf;
-            
-            return matchesId && matchesName && matchesEmail && matchesCpf;
-        }); 
-    }
+  constructor(private students: Student[] = []) {}
 
-    async edit(id: number, student: Student): Promise<Student> {
-        const index = this.students.findIndex((s) => s.id === id);
+  async create(student: Student): Promise<Record<string, number>> {
+    const newStudent = { ...student, id: this.students.length + 1 }
+    this.students.push(newStudent)
+    return { id: newStudent.id }
+  }
 
-        this.students[index] = {...this.students[index], ...student};
-        return this.students[index];
-    }
+  async list(student: Partial<Student>): Promise<Student[]> {
+    return this.students.filter((s) => {
+      const matchesId = !student.id || s.id === student.id
+      const matchesName = !student.name || s.name === student.name
+      const matchesEmail = !student.email || s.email === student.email
+      const matchesCpf = !student.cpf || s.cpf === student.cpf
 
-    async delete(id: number): Promise<void> {
-        this.students = this.students.filter((s) => s.id !== id);
-    }
+      return matchesId && matchesName && matchesEmail && matchesCpf
+    })
+  }
+
+  async edit(id: number, student: Student): Promise<Student> {
+    const index = this.students.findIndex((s) => s.id === id)
+
+    this.students[index] = { ...this.students[index], ...student }
+    return this.students[index]
+  }
+
+  async delete(id: number): Promise<void> {
+    this.students = this.students.filter((s) => s.id !== id)
+  }
 }

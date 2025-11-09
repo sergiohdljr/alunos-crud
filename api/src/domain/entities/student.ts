@@ -1,8 +1,8 @@
 export class Student {
- constructor(
-    public name:string,
-    public email:string,
-    public cpf:string,
+  constructor(
+    public name: string,
+    public email: string,
+    public cpf: string,
     public id?: number,
- ){}
+  ) {}
 }
