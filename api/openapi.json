@@ -188,7 +188,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/students/{id}": {
       "delete": {
         "summary": "Deletar aluno",
         "description": "Remove um aluno do sistema pelo seu ID. Retorna erro 404 se o aluno não encontrado.",

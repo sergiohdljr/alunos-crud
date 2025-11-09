@@ -17,6 +17,7 @@ export class DrizzleRepository implements StudentRepository {
     }
     async list(student: Partial<Student>): Promise<Student[]> {
         const conditions = [];
+        if (student.id) conditions.push(eq(studentTable.id, student.id));
         if (student.name) conditions.push(eq(studentTable.name, student.name));
         if (student.email) conditions.push(eq(studentTable.email, student.email));
         if (student.cpf) conditions.push(eq(studentTable.cpf, student.cpf));

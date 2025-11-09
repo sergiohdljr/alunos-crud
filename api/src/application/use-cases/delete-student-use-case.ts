@@ -6,9 +6,11 @@ export class DeleteStudentUseCase {
     
     async execute(id: number): Promise<void> {
 
-        const student = await this.studentRepository.list({id});
 
-        if (!student) {
+        const students = await this.studentRepository.list({id});
+
+
+        if (students.length === 0) {
             throw new StudentNotFoundError(id);
         }
 
