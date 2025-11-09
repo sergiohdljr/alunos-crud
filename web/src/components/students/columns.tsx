@@ -1,10 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { studentsApi, type Student } from "@/api/students"
-import { toast } from "sonner"
+import { type Student } from "@/api/students"
 import { UpdateStudentDialog } from "./update-student-dialog"
-import { Trash } from "lucide-react"
-import { Button } from "../ui/button"
+import { DeleteStudentAction } from "./delete-student-action"
 
 export const columns: ColumnDef<Student>[] = [
     {
@@ -36,30 +33,10 @@ export const columns: ColumnDef<Student>[] = [
         cell: ({ row }) => {
           const student = row.original
           
-          const queryClient = useQueryClient()
-
-          const handleEdit = (student: Student) => {
-            console.log("Edit student:", student)
-          }
-          
-          const deleteStudentMutation = useMutation({
-            mutationFn: (studentId: number) => studentsApi.delete(studentId),
-            onSuccess: () => {
-              queryClient.invalidateQueries({ queryKey: ['students'] })
-              toast.success('Aluno deletado com sucesso')
-            }
-          })
-          
-          const handleDelete = (id: number) => {
-           deleteStudentMutation.mutate(id)
-          }
-          
           return (
             <div className="flex items-end justify-end gap-2" >
-            <Button className="flex items-center justify-center" onClick={() => handleDelete(student.id)} variant="outline">
-              <Trash color="red" className="h-4 w-4" />
-            </Button>
-            <UpdateStudentDialog id={student.id} currentStudent={student} />
+              <DeleteStudentAction id={student.id} />
+              <UpdateStudentDialog id={student.id} currentStudent={student} />
             </div>
           )
         },
