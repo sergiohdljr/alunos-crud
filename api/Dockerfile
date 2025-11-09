@@ -8,6 +8,7 @@ COPY tsconfig.json ./
 RUN npm ci
 
 COPY src/ ./src/
+COPY openapi.json ./
 
 EXPOSE 3333
 
