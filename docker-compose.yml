@@ -33,6 +33,17 @@ services:
       - alunos-network
     restart: unless-stopped
 
+  web:
+    container_name: alunos-web
+    build: ./web
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    networks:
+      - alunos-network
+
 volumes:
   postgres_data:
 
