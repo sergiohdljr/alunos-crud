@@ -1,6 +1,8 @@
 import { InMemoryRepository } from '@/infra/repositories/in-memory-repository.ts'
 import { UpdateStudentUseCase } from '@/application/use-cases/update-student-use-case.ts'
 import { Student } from '@/domain/entities/student.ts'
+import { StudentEmailAlreadyExistsError } from '@/domain/errors/student-email-already-exists-error.ts'
+import { StudentCpfAlreadyExistsError } from '@/domain/errors/student-cpf-already-exists-error.ts'
 
 describe('UpdateStudentUseCase', () => {
   let studentRepository: InMemoryRepository
@@ -37,7 +39,7 @@ describe('UpdateStudentUseCase', () => {
         email: 'john.doe@example.com',
         cpf: '12345678901',
       }),
-    ).rejects.toThrow(`Student with id ${mockFalseId} not found`)
+    ).rejects.toThrow(`Aluno com ID ${mockFalseId} não encontrado`)
   })
 
   test('should throw an error if student email already exists and student id is different', async () => {
@@ -54,7 +56,7 @@ describe('UpdateStudentUseCase', () => {
         email: 'john.doe@example.com',
         cpf: '98765432100',
       }),
-    ).rejects.toThrow(`Student with email john.doe@example.com already exists`)
+    ).rejects.toThrow(StudentEmailAlreadyExistsError)
   })
 
   test('should throw an error if student cpf already exists and student id is different', async () => {
@@ -71,6 +73,6 @@ describe('UpdateStudentUseCase', () => {
         email: 'jane.doe@example.com',
         cpf: '12345678901',
       }),
-    ).rejects.toThrow(`Student with cpf 12345678901 already exists`)
+    ).rejects.toThrow(StudentCpfAlreadyExistsError)
   })
 })

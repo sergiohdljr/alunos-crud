@@ -1,6 +1,7 @@
 import { DeleteStudentUseCase } from '@/application/use-cases/delete-student-use-case.ts'
 import { InMemoryRepository } from '@/infra/repositories/in-memory-repository.ts'
 import { Student } from '@/domain/entities/student.ts'
+import { StudentNotFoundError } from '@/domain/errors/student-not-found-error.ts'
 
 describe('DeleteStudentUseCase', () => {
   let studentRepository: InMemoryRepository
@@ -24,7 +25,7 @@ describe('DeleteStudentUseCase', () => {
 
   test('should throw an error if student is not found', async () => {
     await expect(deleteStudent.execute(mockFalseId)).rejects.toThrow(
-      `Student with id ${mockFalseId} not found`,
+      StudentNotFoundError,
     )
   })
 })
