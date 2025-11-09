@@ -36,7 +36,7 @@ export const columns: ColumnDef<Student>[] = [
           return (
             <div className="flex items-end justify-end gap-2" >
               <DeleteStudentAction id={student.id} />
-              <UpdateStudentDialog id={student.id} currentStudent={student} />
+              <UpdateStudentDialog key={`update-${student.id}-${student.updated_at}`} id={student.id} currentStudent={student} />
             </div>
           )
         },
