@@ -26,6 +26,9 @@ export class DrizzleRepository implements StudentRepository {
             .from(studentTable)
             .where(conditions.length > 0 ? or(...conditions) : undefined);
     }
+    async delete(id: number): Promise<void> {
+        await this.db.delete(studentTable).where(eq(studentTable.id, id));
+    }
     
 }   
     

@@ -188,6 +188,53 @@
             }
           }
         }
+      },
+      "delete": {
+        "summary": "Deletar aluno",
+        "description": "Remove um aluno do sistema pelo seu ID. Retorna erro 404 se o aluno não encontrado.",
+        "tags": ["Alunos"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path", 
+            "description": "ID único do aluno a ser deletado",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Aluno deletado com sucesso"
+          },
+          "404": {
+            "description": "Aluno não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "StudentNotFoundError",
+                  "message": "Student with id 1 not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },

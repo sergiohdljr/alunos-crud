@@ -2,7 +2,7 @@ import { StudentRepository } from "@/application/repositories/student-repository
 import { Student } from "@/domain/entities/student.ts";
 
 export class InMemoryRepository implements StudentRepository {
-    constructor(private readonly students: Student[] = []) {}
+    constructor(private students: Student[] = []) {}
     
     async create(student: Student): Promise<Record<string, number>> {
         const newStudent = {...student, id: this.students.length + 1};
@@ -17,6 +17,9 @@ export class InMemoryRepository implements StudentRepository {
             const matchesCpf = !student.cpf || s.cpf === student.cpf;
             
             return matchesName && matchesEmail && matchesCpf;
-        });
+        }); 
+    }
+    async delete(id: number): Promise<void> {
+        this.students = this.students.filter((s) => s.id !== id);
     }
 }
