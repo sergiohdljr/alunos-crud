@@ -19,7 +19,7 @@ cd alunos-crud
 
 ### 2. Executar com Docker Compose
 
-O projeto utiliza Docker Compose para orquestrar os serviços (banco de dados, API e futuramente o frontend).
+O projeto utiliza Docker Compose para orquestrar todos os serviços (banco de dados, API e frontend).
 
 ```bash
 # Subir todos os serviços
@@ -28,8 +28,11 @@ docker-compose up -d
 # Verificar se os containers estão rodando
 docker-compose ps
 
-# A API estará disponível em http://localhost:3333/api
-# Para acessar a documentação da API, acesse http://localhost:3333/reference
+# Os serviços estarão disponíveis em:
+# - Frontend: http://localhost:5173
+# - API: http://localhost:3333/api
+# - Documentação da API: http://localhost:3333/reference
+# - PostgreSQL: localhost:5432
 ```
 
 ### 3. Configurar o banco de dados
@@ -70,22 +73,15 @@ npm run lint
 
 ```
 
-### 6. Executar o frontend (desenvolvimento local)
+## Serviços e Portas
 
-O frontend React roda separadamente em modo de desenvolvimento:
+O projeto roda completamente em containers Docker com os seguintes serviços:
 
-```bash
-# Navegar para a pasta do frontend
-cd web
-
-# Instalar dependências
-npm install
-
-# Executar em modo de desenvolvimento
-npm run dev
-
-# O frontend estará disponível em http://localhost:5173
-```
+| Serviço | Container | Porta | URL |
+|---------|-----------|-------|-----|
+| **Frontend** | `alunos-web` | 5173 | http://localhost:5173 |
+| **API** | `alunos-api` | 3333 | http://localhost:3333/api |
+| **PostgreSQL** | `alunos-postgres` | 5432 | localhost:5432 |
 
 ## Estrutura do projeto
 
@@ -143,4 +139,27 @@ alunos-crud/
 - TanStack Table (tabelas)
 - Tailwind CSS (estilização)
 - Shadcn/ui (componentes)
+
+## Desenvolvimento Local (Opcional)
+
+Se preferir executar os serviços localmente para desenvolvimento:
+
+### API
+```bash
+cd api
+npm install
+npm run dev  # Porta 3333
+```
+
+### Frontend
+```bash
+cd web
+npm install
+npm run dev  # Porta 5173
+```
+
+**Nota:** Para desenvolvimento local, você ainda precisará do PostgreSQL rodando via Docker:
+```bash
+docker-compose up postgres -d
+```
 
