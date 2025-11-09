@@ -3,6 +3,7 @@ import { makeStudentController } from "@/main/factories/make-register-student-co
 import { studentRoutes } from "@/infra/http/routes/student-routes.ts";
 import { apiReference } from "@scalar/express-api-reference";
 import { errorHandler } from "@/infra/http/middleares/error-handling.ts";
+import cors from "cors";
 
 export async function bootstrap() {
   const app = createServer();
@@ -36,6 +37,7 @@ export async function bootstrap() {
     }),
   )
 
+  app.use(cors({ origin: "*" }));
   app.use("/api", studentRoutes(studentController));
   app.use(errorHandler);
 
