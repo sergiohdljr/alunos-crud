@@ -15,7 +15,7 @@ function App() {
  })
 
   return (
-    <div className='w-full h-screen flex flex-col items-center justify-center ' >
+    <div className='w-full h-screen flex flex-col items-center justify-center' >
       <div className='w-4/6' >
       {isLoading && <div>Carregando...</div>}
       {error && <div>Erro ao carregar dados</div>}
