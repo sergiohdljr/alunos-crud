@@ -1,19 +1,12 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
-type Student = {
-    name: string
-    email: string
-    cpf: string
-    createdAt: Date
-    updatedAt: Date
-}
+import { type Student } from "@/api/students"
 
 interface ActionTableDropdownProps {
   student: Student
   onEdit?: (student: Student) => void
-  onDelete?: (student: Student) => void
+  onDelete?: (id: number) => void
 }
 
 export function ActionTableDropdown({ student, onEdit, onDelete }: ActionTableDropdownProps) {
@@ -25,8 +18,8 @@ export function ActionTableDropdown({ student, onEdit, onDelete }: ActionTableDr
     onEdit?.(student)
   }
 
-  const handleDelete = () => {
-    onDelete?.(student)
+  const handleDelete = (id: number) => {
+    onDelete?.(id)
   }
 
   return (
@@ -46,7 +39,7 @@ export function ActionTableDropdown({ student, onEdit, onDelete }: ActionTableDr
         <DropdownMenuItem onClick={handleEdit}>
           Editar
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleDelete}>
+        <DropdownMenuItem onClick={() => handleDelete(student.id)}>
           Deletar
         </DropdownMenuItem>
       </DropdownMenuContent>

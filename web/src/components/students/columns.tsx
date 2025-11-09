@@ -1,14 +1,8 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ActionTableDropdown } from "./action-table-dropdown"
-
-type Student = {
-    name: string
-    email: string
-    cpf: string
-    created_at: string
-    updated_at: string
-}
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { studentsApi, type Student } from "@/api/students"
 
 export const columns: ColumnDef<Student>[] = [
     {
@@ -62,14 +56,21 @@ export const columns: ColumnDef<Student>[] = [
         cell: ({ row }) => {
           const student = row.original
           
+          const queryClient = useQueryClient()
+
           const handleEdit = (student: Student) => {
             console.log("Edit student:", student)
-            // TODO: Implement edit functionality
           }
           
-          const handleDelete = (student: Student) => {
-            console.log("Delete student:", student)
-            // TODO: Implement delete functionality
+          const deleteStudentMutation = useMutation({
+            mutationFn: (studentId: number) => studentsApi.delete(studentId),
+            onSuccess: () => {
+              queryClient.invalidateQueries({ queryKey: ['students'] })
+            }
+          })
+          
+          const handleDelete = (id: number) => {
+           deleteStudentMutation.mutate(id)
           }
           
           return (
