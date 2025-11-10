@@ -57,7 +57,7 @@ O arquivo `.env` criado deve conter a seguinte configuração para funcionar com
 ```env
 NODE_ENV=development
 PORT=3333
-DATABASE_URL=postgresql://alunos_user:alunos_password@postgres:5432/alunos_db
+DATABASE_URL=postgresql://alunos_user:alunos_password@localhost:5432/alunos_db
 ```
 
 ### 4. Rodar migrações e seeds
