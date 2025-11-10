@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 import { BaseError } from '@/domain/errors/base-error.ts'
+import * as z from 'zod'
 
 export function errorHandler(
   err: unknown,
@@ -14,6 +15,13 @@ export function errorHandler(
       error: err.name,
       message: err.message,
       details: err.details,
+    })
+  }
+
+  if(err instanceof z.ZodError){
+    return res.status(400).json({
+      error: 'ValidationError',
+      message: err.issues[0].message ,
     })
   }
 

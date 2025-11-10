@@ -2,7 +2,7 @@ import { createServer } from '@/infra/http/server.ts'
 import { makeStudentController } from '@/main/factories/make-register-student-controller.ts'
 import { studentRoutes } from '@/infra/http/routes/student-routes.ts'
 import { apiReference } from '@scalar/express-api-reference'
-import { errorHandler } from '@/infra/http/middleares/error-handling.ts'
+import { errorHandler } from '@/infra/http/middlewares/error-handling.ts'
 import cors from 'cors'
 
 export async function bootstrap() {

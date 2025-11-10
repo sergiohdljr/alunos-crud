@@ -13,9 +13,9 @@ export class StudentController {
   ) {}
 
   async handleRegisterStudent(req: Request, res: Response, next: NextFunction) {
-    const { name, email, cpf } = req.body
-
     try {
+      const { name, email, cpf } = req.body
+
       const student = await this.createStudentUseCase.execute({
         name,
         email,
@@ -28,8 +28,8 @@ export class StudentController {
   }
 
   async handleListStudents(req: Request, res: Response, next: NextFunction) {
-    const { query } = req
     try {
+      const query = req.validatedQuery || {}
       const students = await this.listStudentsUseCase.execute(query)
       return res.status(200).json(students)
     } catch (error) {
@@ -38,9 +38,9 @@ export class StudentController {
   }
 
   async handleDeleteStudent(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params
     try {
-      await this.deleteStudentUseCase.execute(Number(id))
+      const { id } = req.validatedParams || req.params
+      await this.deleteStudentUseCase.execute(typeof id === 'number' ? id : Number(id))
       return res.status(204).send()
     } catch (error) {
       next(error)
@@ -48,10 +48,11 @@ export class StudentController {
   }
 
   async handleUpdateStudent(req: Request, res: Response, next: NextFunction) {
-    const { id } = req.params
-    const { name, email, cpf } = req.body
     try {
-      const student = await this.updateStudentUseCase.execute(Number(id), {
+      const { id } = req.validatedParams || req.params
+      const { name, email, cpf } = req.body
+      
+      const student = await this.updateStudentUseCase.execute(typeof id === 'number' ? id : Number(id), {
         name,
         email,
         cpf,
