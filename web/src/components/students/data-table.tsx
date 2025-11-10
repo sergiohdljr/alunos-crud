@@ -21,6 +21,8 @@ import type { StudentPayload } from "@/api/student-types"
 import { Button } from "@/components/ui/button"
 import { X, Search } from "lucide-react"
 import { EmptyStudentsState } from "@/components/ui/empty-state"
+import { LoadingState } from "@/components/loading-state"
+import { ErrorState } from "@/components/error-state"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -29,6 +31,9 @@ interface DataTableProps<TData, TValue> {
   setInputFilters: (filters: StudentPayload) => void
   applyFilters: () => void
   resetFilters: () => void
+  isLoading?: boolean
+  error?: Error | null
+  onRetry?: () => void
 }
 
 export function DataTable<TData, TValue>({
@@ -38,6 +43,9 @@ export function DataTable<TData, TValue>({
   setInputFilters,
   applyFilters,
   resetFilters,
+  isLoading = false,
+  error = null,
+  onRetry,
 }: DataTableProps<TData, TValue>) {
 
   const table = useReactTable({
@@ -132,7 +140,23 @@ export function DataTable<TData, TValue>({
               ))}
             </TableHeader>
             <TableBody>
-              {table.getRowModel().rows?.length ? (
+              {isLoading ? (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="p-0">
+                    <LoadingState message="Carregando alunos..." />
+                  </TableCell>
+                </TableRow>
+              ) : error ? (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="p-0">
+                    <ErrorState 
+                      message="Erro ao carregar lista de alunos" 
+                      onRetry={onRetry}
+                      showRetryButton={!!onRetry}
+                    />
+                  </TableCell>
+                </TableRow>
+              ) : table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}
