@@ -52,10 +52,10 @@ export function DeleteStudentAction({ id }: DeleteStudentActionProps) {
           <Trash color="red" className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-emerald-400 border border-black">
         <DialogHeader>
           <DialogTitle>Confirmar Exclusão</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-black" >
             Tem certeza que deseja deletar este aluno? Esta ação não pode ser desfeita.
           </DialogDescription>
         </DialogHeader>

@@ -55,10 +55,10 @@ export function CreateStudentDialog() {
         <DialogTrigger asChild>
           <Button variant="outline">Adicionar Aluno</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] bg-emerald-400 border border-black">
           <DialogHeader>
             <DialogTitle>Adicionar Aluno</DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-black" >
              Adicione um novo aluno a tabela
             </DialogDescription>
           </DialogHeader>

@@ -24,12 +24,8 @@ export const updateStudentSchema = createStudentSchema
 
 export const listStudentsQuerySchema = z.object({
   name: z.string().optional(),
-  email: z.email('Email deve ter um formato válido').optional(),
-  cpf: z.string()
-    .transform(val => val.replace(/[^0-9]/g, ''))
-    .refine(val => val.length === 11, 'CPF deve conter exatamente 11 dígitos')
-    .refine(val => /^[0-9]+$/.test(val), 'CPF deve conter apenas números')
-    .optional()
+  email: z.string().optional(),
+  cpf: z.string().optional()
 })
 
 export const studentIdSchema = z.object({

@@ -61,10 +61,10 @@ export function UpdateStudentDialog({ id, currentStudent }: UpdateStudentDialogP
             <PencilIcon className="h-4 w-4" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] bg-emerald-400 border border-black">
           <DialogHeader>
             <DialogTitle>Atualizar Aluno</DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-black" >
              Atualize um aluno a tabela
             </DialogDescription>
           </DialogHeader>
