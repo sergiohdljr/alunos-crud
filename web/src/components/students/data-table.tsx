@@ -48,9 +48,9 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="w-full overflow-hidden rounded-md border p-4">
-     <div className="flex justify-between items-center py-4 gap-4">
-        <div className="flex gap-2 flex-1">
+    <div className="w-full overflow-hidden rounded-md border p-2 sm:p-4">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center py-4 gap-4">
+        <div className="flex flex-col sm:flex-row gap-2 flex-1">
           <Input
             placeholder="Filtrar por nome..."
             value={inputFilters.name}
@@ -60,7 +60,7 @@ export function DataTable<TData, TValue>({
                   name: e.target.value
               })
             }
-            className="max-w-sm"
+            className="w-full sm:max-w-[200px]"
           />
           <Input
             placeholder="Filtrar por email..."
@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
                   email: e.target.value
               })
             }
-            className="max-w-sm"
+            className="w-full sm:max-w-[200px]"
           />
           <Input
             placeholder="Filtrar por CPF..."
@@ -82,69 +82,79 @@ export function DataTable<TData, TValue>({
                   cpf: e.target.value
               })
             }
-            className="max-w-sm"
+            className="w-full sm:max-w-[180px]"
           />
-          <Button
-            variant="default"
-            onClick={applyFilters}
-            className="px-3"
-          >
-            <Search className="w-4" />
-            Buscar
-          </Button>
+          
+          <div className="flex gap-2 w-full sm:w-auto">
+            <Button
+              variant="default"
+              onClick={applyFilters}
+              className="flex-1 sm:flex-none px-3"
+            >
+              <Search className="w-4 mr-1" />
+              <span className="hidden sm:inline">Buscar</span>
+            </Button>
             <Button
               variant="outline"
               onClick={resetFilters}
-              className="px-2 lg:px-3"
+              className="flex-1 sm:flex-none px-2 lg:px-3"
             >
-              <X className="w-4" />
-              Limpar
+              <X className="w-4 mr-1" />
+              <span className="hidden sm:inline">Limpar</span>
             </Button>
+          </div>
         </div>
-        <CreateStudentDialog />
+        
+        <div className="w-full lg:w-auto">
+          <CreateStudentDialog />
+        </div>
       </div>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+
+      <div className="overflow-x-auto">
+        <Table className="min-w-full">
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id} className="whitespace-nowrap">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  )
+                })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="p-0">
-                <EmptyStudentsState onClearFilters={resetFilters} />
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} className="whitespace-nowrap">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="p-0">
+                  <EmptyStudentsState onClearFilters={resetFilters} />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+      
       <TablePagination table={table} />
     </div>
   )}

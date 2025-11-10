@@ -14,18 +14,27 @@ function App() {
   })
  
   return (
-    <div className='w-full h-screen flex flex-col items-center justify-center' >
-      <div className='lg:w-4/6 w-full' >
-      {isLoading && <div>Carregando...</div>}
-      {error && <div>Erro ao carregar dados</div>}
-      {!isLoading && !error && data && <DataTable 
-        columns={columns} 
-        data={data} 
-        inputFilters={inputFilters} 
-        setInputFilters={setInputFilters}
-        applyFilters={applyFilters}
-        resetFilters={resetFilters}
-      />}
+    <div className='w-full h-screen flex flex-col items-center justify-center bg-emerald-400' >
+      <div className='lg:w-4/6 w-full px-4' >
+        <div className='mb-6 sm:mb-8 text-center px-2'>
+          <h1 className='mt-14 text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2'>
+            Sistema de Gerenciamento de Alunos
+          </h1>
+          <p className='text-sm sm:text-base lg:text-lg text-gray-600 dark:text-gray-400'>
+            Gerencie os dados dos alunos de forma simples e eficiente
+          </p>
+        </div>
+        
+        {isLoading && <div className='text-center'>Carregando...</div>}
+        {error && <div className='text-center'>Erro ao carregar dados</div>}
+        {!isLoading && !error && data && <DataTable 
+          columns={columns} 
+          data={data} 
+          inputFilters={inputFilters} 
+          setInputFilters={setInputFilters}
+          applyFilters={applyFilters}
+          resetFilters={resetFilters}
+        />}
       </div>
       <Toaster position="top-right" />
     </div>
