@@ -5,7 +5,7 @@ Sistema completo para gerenciamento de alunos desenvolvido com Node.js, React e 
 ## Pré-requisitos
 
 - Docker e Docker Compose
-- Node.js 18+ (para desenvolvimento local)
+- Node.js 20+ (para desenvolvimento local)
 - npm ou yarn
 
 ## Como executar o projeto
