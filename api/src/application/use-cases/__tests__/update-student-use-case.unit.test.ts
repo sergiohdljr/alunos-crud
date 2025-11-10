@@ -18,7 +18,7 @@ describe('UpdateStudentUseCase', () => {
     mockStudent.id = id
   })
 
-  test('should update a student', async () => {
+  test('Deve atualizar um aluno', async () => {
     const updatedStudent = await updateStudent.execute(mockStudent.id!, {
       name: 'John Doe',
       email: 'john.doe@example.com',
@@ -32,7 +32,7 @@ describe('UpdateStudentUseCase', () => {
     })
   })
 
-  test('should throw an error if student is not found', async () => {
+  test('Deve lançar um erro se o aluno não for encontrado', async () => {
     await expect(
       updateStudent.execute(mockFalseId, {
         name: 'John Doe',
@@ -42,7 +42,7 @@ describe('UpdateStudentUseCase', () => {
     ).rejects.toThrow(`Aluno com ID ${mockFalseId} não encontrado`)
   })
 
-  test('should throw an error if student email already exists and student id is different', async () => {
+  test('Deve lançar um erro se o email do aluno já existir e o id for diferente', async () => {
     const mockStudent2 = new Student(
       'Jane Doe',
       'jane.doe@example.com',
@@ -59,7 +59,7 @@ describe('UpdateStudentUseCase', () => {
     ).rejects.toThrow(StudentEmailAlreadyExistsError)
   })
 
-  test('should throw an error if student cpf already exists and student id is different', async () => {
+  test('Deve lançar um erro se o cpf do aluno já existir e o id for diferente', async () => {
     const mockStudent2 = new Student(
       'Jane Doe',
       'jane.doe@example.com',

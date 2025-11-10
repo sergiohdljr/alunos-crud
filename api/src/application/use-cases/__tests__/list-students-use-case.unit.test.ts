@@ -24,21 +24,21 @@ describe('ListStudentsUseCase', () => {
     listStudents = new ListStudentsUseCase(studentRepository)
   })
 
-  test('should list all students', async () => {
+  test('Deve listar todos os alunos', async () => {
     const students = await listStudents.execute({})
 
     expect(students).toBeInstanceOf(Array)
     expect(students).toHaveLength(2)
   })
 
-  test('should list students by name', async () => {
+  test('Deve listar alunos por nome', async () => {
     const students = await listStudents.execute({ name: 'John Doe' })
 
     expect(students).toBeInstanceOf(Array)
     expect(students).toHaveLength(1)
   })
 
-  test('should list students by email', async () => {
+  test('Deve listar alunos por email', async () => {
     const students = await listStudents.execute({
       email: 'john.doe@example.com',
     })
@@ -47,14 +47,14 @@ describe('ListStudentsUseCase', () => {
     expect(students).toHaveLength(1)
   })
 
-  test('should list students by cpf', async () => {
+  test('Deve listar alunos por cpf', async () => {
     const students = await listStudents.execute({ cpf: '12345678901' })
 
     expect(students).toBeInstanceOf(Array)
     expect(students).toHaveLength(1)
   })
 
-  test('should list student by name,cpf and email', async () => {
+  test('Deve listar alunos por nome,cpf e email', async () => {
     const students = await listStudents.execute({
       name: 'John Doe',
       cpf: '12345678901',

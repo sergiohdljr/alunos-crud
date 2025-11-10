@@ -16,13 +16,13 @@ describe('CreateStudentUseCase', () => {
     mockStudent = new Student('John Doe', 'john.doe@example.com', '12345678901')
   })
 
-  test('should create a student', async () => {
+  test('deve criar um aluno', async () => {
     const student = await createStudent.execute(mockStudent)
 
     expect(student).toHaveProperty('id')
   })
 
-  test('should throw an error if a student with the same email already exists', async () => {
+  test('deve lançar um erro se um aluno com o mesmo email já existir', async () => {
     await createStudent.execute(mockStudent)
 
     await expect(
@@ -34,7 +34,7 @@ describe('CreateStudentUseCase', () => {
     ).rejects.toThrow(StudentEmailAlreadyExistsError)
   })
 
-  test('should throw an error if a student with the same cpf already exists', async () => {
+  test('deve lançar um erro se um aluno com o mesmo cpf já existir', async () => {
     await createStudent.execute(mockStudent)
 
     await expect(

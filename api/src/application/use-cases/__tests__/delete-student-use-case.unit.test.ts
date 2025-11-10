@@ -17,13 +17,13 @@ describe('DeleteStudentUseCase', () => {
     mockStudent.id = id
   })
 
-  test('should delete a student', async () => {
+  test('Deve deletar um aluno', async () => {
     await deleteStudent.execute(mockStudent.id!)
     const student = await studentRepository.list({ id: mockStudent.id! })
     expect(student).toHaveLength(0)
   })
 
-  test('should throw an error if student is not found', async () => {
+  test('Deve lançar um erro se o aluno não for encontrado', async () => {
     await expect(deleteStudent.execute(mockFalseId)).rejects.toThrow(
       StudentNotFoundError,
     )
