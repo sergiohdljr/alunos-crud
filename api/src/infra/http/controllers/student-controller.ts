@@ -40,7 +40,7 @@ export class StudentController {
   async handleDeleteStudent(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.validatedParams || req.params
-      await this.deleteStudentUseCase.execute(typeof id === 'number' ? id : Number(id))
+      await this.deleteStudentUseCase.execute(id)
       return res.status(204).send()
     } catch (error) {
       next(error)
@@ -52,7 +52,7 @@ export class StudentController {
       const { id } = req.validatedParams || req.params
       const { name, email, cpf } = req.body
       
-      const student = await this.updateStudentUseCase.execute(typeof id === 'number' ? id : Number(id), {
+      const student = await this.updateStudentUseCase.execute(id, {
         name,
         email,
         cpf,
