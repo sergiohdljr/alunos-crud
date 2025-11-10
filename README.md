@@ -98,7 +98,7 @@ npm run test:integration
 ```bash
 
 # Verificar e corrigir problemas de lint
-npm run lint
+npm run format
 
 ```
 
@@ -180,7 +180,7 @@ alunos-crud/
 - Drizzle (ORM)
 - PostgreSQL (banco de dados)
 - Jest (testes)
-- ESLint (linting)
+- Biome (linting)
 
 ### Frontend
 - React com TypeScript
