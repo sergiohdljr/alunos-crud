@@ -119,15 +119,34 @@ O projeto roda completamente em containers Docker com os seguintes serviços:
 alunos-crud/
 ├── api/                          # Backend (Node.js + TypeScript)
 │   ├── src/
-│   │   ├── application/          # Casos de uso e regras de negócio
-│   │   ├── domain/              # Entidades e interfaces do domínio
-│   │   ├── infra/               # Infraestrutura (banco, HTTP, etc.)
-│   │   └── main/                # Configuração e inicialização da aplicação
+│   │   ├── application/          # Camada de aplicação
+│   │   │   ├── repositories/     # Interfaces dos repositórios
+│   │   │   └── use-cases/        # Casos de uso e regras de negócio
+│   │   │       └── __tests__/    # Testes unitários dos use cases
+│   │   ├── domain/              # Camada de domínio
+│   │   │   ├── entities/        # Entidades do domínio
+│   │   │   ├── errors/          # Erros específicos do domínio
+│   │   │   └── value-objects/   # Objetos de valor
+│   │   ├── infra/               # Camada de infraestrutura
+│   │   │   ├── db/              # Configuração do banco de dados
+│   │   │   │   ├── migrations/  # Migrações do banco
+│   │   │   │   │   └── meta/    # Metadados das migrações
+│   │   │   │   └── schema/      # Schemas do Drizzle ORM
+│   │   │   ├── http/            # Infraestrutura HTTP
+│   │   │   │   ├── __tests__/   # Testes de integração
+│   │   │   │   ├── controllers/ # Controllers da API
+│   │   │   │   ├── middlewares/ # Middlewares (validação, erro)
+│   │   │   │   ├── routes/      # Definição das rotas
+│   │   │   │   └── types/       # Tipos e schemas de validação
+│   │   │   └── repositories/    # Implementações dos repositórios
+│   │   └── main/                # Configuração e inicialização
+│   │       └── factories/       # Factories para injeção de dependência
 │   ├── .env.example             # Template de variáveis de ambiente
 │   ├── biome.json               # Configuração do Biome (linter/formatter)
 │   ├── drizzle.config.ts        # Configuração do Drizzle ORM
 │   ├── jest.config.ts           # Configuração dos testes
 │   ├── openapi.json             # Especificação OpenAPI da API
+│   ├── tsconfig.json            # Configuração do TypeScript
 │   ├── Dockerfile               # Container da API
 │   └── package.json             # Dependências e scripts da API
 │
