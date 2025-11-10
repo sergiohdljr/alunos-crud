@@ -88,6 +88,9 @@ Para rodar os testes da API:
 # Executar testes unitários
 npm run test:unit
 
+# Executar testes de integração
+npm run test:integration
+
 ```
 
 ### 6. Executar lint na API [opcional]
