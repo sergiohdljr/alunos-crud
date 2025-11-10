@@ -111,7 +111,7 @@ export function DataTable<TData, TValue>({
       </div>
 
       <div className="overflow-x-auto">
-        <div className="h-[60vh] border rounded-md overflow-hidden">
+        <div className="min-w-full">
           <Table className="min-w-full h-full">
             <TableHeader className="sticky top-0 z-10">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -131,7 +131,7 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody className="overflow-y-auto">
+            <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow

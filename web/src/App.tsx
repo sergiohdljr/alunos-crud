@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query'
 import { studentsApi } from './api/students'
 import { Toaster } from './components/ui/sonner'
 import { useTableFilters } from './hooks/table-filters'
+import { LoadingState } from './components/loading-state'
+import { ErrorState } from './components/error-state'
 
 function App() {
   const {inputFilters, setInputFilters, activeFilters, applyFilters, resetFilters} = useTableFilters()
@@ -24,17 +26,18 @@ function App() {
             Gerencie os dados dos alunos de forma simples e eficiente
           </p>
         </div>
-        
-        {isLoading && <div className='text-center'>Carregando...</div>}
-        {error && <div className='text-center'>Erro ao carregar dados</div>}
-        {!isLoading && !error && data && <DataTable 
+        <div >
+        {isLoading && <LoadingState message="Carregando alunos..." />}
+        {error && <ErrorState message="Erro ao carregar lista de alunos" />}
+        {!isLoading && !error && <DataTable 
           columns={columns} 
-          data={data} 
+          data={data || []} 
           inputFilters={inputFilters} 
           setInputFilters={setInputFilters}
           applyFilters={applyFilters}
           resetFilters={resetFilters}
         />}
+        </div>
       </div>
       <Toaster position="top-right" />
     </div>
