@@ -31,7 +31,7 @@ function createTestApp() {
   return { app, repository }
 }
 
-describe('Student Routes (Integration)', () => {
+describe('Endpoints de Alunos (Integração)', () => {
   let app: express.Express
 
   beforeEach(() => {
@@ -39,7 +39,7 @@ describe('Student Routes (Integration)', () => {
     app = testEnv.app
   })
 
-  it('should create a new student (POST /students)', async () => {
+  it('Deve criar um aluno (POST /students)', async () => {
     const response = await request(app)
       .post('/students')
       .send({
@@ -57,7 +57,7 @@ describe('Student Routes (Integration)', () => {
   })
 
 
-  it('should list students (GET /students)', async () => {
+  it('Deve listar alunos (GET /students)', async () => {
     await request(app).post('/students').send({
       name: 'Jane Doe',
       email: 'jane@example.com',
@@ -71,7 +71,7 @@ describe('Student Routes (Integration)', () => {
     expect(response.body[0]).toHaveProperty('name', 'Jane Doe')
   })
 
-  it('should update a student (PUT /students/:id)', async () => {
+  it('Deve atualizar um aluno (PUT /students/:id)', async () => {
     const createRes = await request(app)
       .post('/students')
       .send({
@@ -100,7 +100,7 @@ describe('Student Routes (Integration)', () => {
     )
   })
 
-  it('should delete a student (DELETE /students/:id)', async () => {
+  it('Deve deletar um aluno (DELETE /students/:id)', async () => {
     const createRes = await request(app)
       .post('/students')
       .send({
